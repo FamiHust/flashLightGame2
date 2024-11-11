@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "flashlight-game-main-main.sln"
+    "dotnet.defaultSolution": "flashLightGame2.sln"
 }

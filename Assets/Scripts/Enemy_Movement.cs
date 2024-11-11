@@ -5,7 +5,7 @@ public class Enemy_Movement : MonoBehaviour
     private EnemySpawner enemySpawner;
     public GameObject player;
     //public float speed;
-    public GameObject spotlight; // Reference to the spotlight
+    public GameObject spotlight;
 
 
     //private float distance;
@@ -29,7 +29,9 @@ public class Enemy_Movement : MonoBehaviour
         if (collision.gameObject == spotlight)
         {
             // Destroy the enemy
-            Destroy(gameObject);
+            SoundManager.PlaySound(SoundType.DIE);
+
+            Destroy(gameObject, 0.1f);
         }
     }
 }

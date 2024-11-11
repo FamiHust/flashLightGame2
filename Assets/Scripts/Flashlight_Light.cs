@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class LightController : MonoBehaviour
 {
+    private Controller playerController;
     private UnityEngine.Rendering.Universal.Light2D light2D;
     private Collider2D lightCollider; // Collider cho ánh sáng
 
@@ -12,6 +13,8 @@ public class LightController : MonoBehaviour
 
     private void Start()
     {
+        playerController = FindObjectOfType<Controller>();
+
         light2D = GetComponent<UnityEngine.Rendering.Universal.Light2D>();
         light2D.enabled = false;
 
@@ -21,10 +24,14 @@ public class LightController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.O))
+        if (Input.GetKey(KeyCode.O) && playerController.currentBattery > 0)
         {
-            light2D.enabled = true;
-            lightCollider.enabled = true;
+            if (!light2D.enabled) // Kiểm tra nếu đèn chưa bật
+            {
+                light2D.enabled = true;
+                lightCollider.enabled = true;
+                SoundManager.PlaySound(SoundType.FLASHLIGHT); // Gọi âm thanh khi bật đèn
+            }
 
             holdTime += Time.deltaTime;
 
@@ -42,6 +49,7 @@ public class LightController : MonoBehaviour
                 light2D.enabled = false;
                 lightCollider.enabled = false;
             }
+            holdTime = 0f;
         }
     }
 
