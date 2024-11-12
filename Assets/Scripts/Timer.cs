@@ -8,13 +8,10 @@ public class Timer : MonoBehaviour
     [SerializeField] float remainingTime;
     [SerializeField] private int nextLevel;
     [SerializeField] private int replayLevel;
-
-
-    public GameObject WinPanel;
+    public GameObject OverPanel;
 
     void Update()
     {
-
         if (remainingTime > 0)
         {
             remainingTime -= Time.deltaTime;
@@ -23,20 +20,18 @@ public class Timer : MonoBehaviour
         {
             remainingTime = 0;
             timerText.color = Color.red;
-
-            GameWin();
-
+            GameOver();
         }
+
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
-
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    public void GameWin()
+    public void GameOver()
     {
         Time.timeScale = 0;
-        WinPanel.SetActive(true);
+        OverPanel.SetActive(true);
     }
 
     public void ReplayGame()
@@ -54,5 +49,11 @@ public class Timer : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    // Phương thức mới để thêm thời gian
+    public void AddTime(float timeToAdd)
+    {
+        remainingTime += timeToAdd; // Tăng thời gian còn lại
     }
 }

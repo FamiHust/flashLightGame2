@@ -7,6 +7,11 @@ TagManager:
   - Enemy
   - Flashlight
   - Obstacle
+  - FinishLine
+  - Battery
+  - Health
+  - Coin
+  - Time
   layers:
   - Default
   - TransparentFX
