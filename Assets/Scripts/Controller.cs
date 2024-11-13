@@ -132,9 +132,15 @@ public class Controller : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            TakeDamage(1);
-            SoundManager.PlaySound(SoundType.ATTACK);
-            StartCoroutine(PlayHurtSoundWithDelay(0.4f));
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+
+            // Kiểm tra xem enemy có bị đóng băng không
+            if (enemy != null && !enemy.IsFrozen())
+            {
+                TakeDamage(1);
+                SoundManager.PlaySound(SoundType.ATTACK);
+                StartCoroutine(PlayHurtSoundWithDelay(0.4f));
+            }
         }
     }
 

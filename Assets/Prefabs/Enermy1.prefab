@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4915371560131317220}
   - component: {fileID: 2249220917431126925}
   - component: {fileID: 9164188992068048947}
+  - component: {fileID: 8503171285236292752}
   m_Layer: 0
   m_Name: Enermy1
   m_TagString: Enemy
@@ -288,6 +289,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   spotlight: {fileID: 0}
+--- !u!114 &8503171285236292752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991252433508760806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1db109b5f231748a2f36e06bc67cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8587816464850599208
 GameObject:
   m_ObjectHideFlags: 0
