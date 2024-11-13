@@ -9,11 +9,13 @@ public class Enemy_Movement : MonoBehaviour
     public GameObject spotlight;
     private AIPath aiPath;
     private Animator animator;
+    private float originalSpeed;
 
     private void Start()
     {
         aiPath = GetComponent<AIPath>();
         animator = GetComponent<Animator>();
+        originalSpeed = aiPath.maxSpeed; // Lưu tốc độ gốc
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -31,8 +33,19 @@ public class Enemy_Movement : MonoBehaviour
         animator.enabled = false;
     }
 
-    public void ReduceSpeed(float factor)
+    public void ResumeMovement()
     {
-        aiPath.maxSpeed *= factor; // Giảm tốc độ
+        aiPath.maxSpeed = 2f; // Đặt lại tốc độ ban đầu (hoặc giá trị bạn muốn)
+        animator.enabled = true; // Bật lại animator nếu cần
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        aiPath.maxSpeed = newSpeed; // Cập nhật tốc độ
+    }
+
+    public void ResetSpeed()
+    {
+        aiPath.maxSpeed = originalSpeed; // Khôi phục tốc độ gốc
     }
 }

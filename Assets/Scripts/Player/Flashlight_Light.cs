@@ -19,6 +19,7 @@ public class LightController : MonoBehaviour
     [SerializeField] private float holdDuration = 5f; // Thời gian giữ phím để tiêu diệt kẻ thù
     [SerializeField] private LightType lightType; // Loại đèn
     private LightType currentLightType; // Loại đèn hiện tại
+    public GameObject flashLight; // Tham chiếu đến GameObject FlashLight
 
     private float holdTime = 0f; // Thời gian đã giữ phím
 
@@ -64,7 +65,6 @@ public class LightController : MonoBehaviour
             }
 
             holdTime += Time.deltaTime;
-
             CheckForEnemies();
         }
         else
@@ -92,6 +92,12 @@ public class LightController : MonoBehaviour
         {
             if (hitColliders[i] != null && hitColliders[i].CompareTag("Enemy"))
             {
+                // Kiểm tra xem GameObject có tag "FinishLine" không
+                if (hitColliders[i].CompareTag("FinishLine"))
+                {
+                    continue; // Bỏ qua nếu là FinishLine
+                }
+
                 // Gọi phương thức tương ứng dựa trên loại đèn hiện tại
                 switch (currentLightType)
                 {
@@ -105,7 +111,7 @@ public class LightController : MonoBehaviour
                         break;
                     case LightType.Spawn:
                         SpawnEnemy(hitColliders[i]);
-                        hitColliders[i].GetComponent<Enemy>().ChangeColor(Color.green);
+                        //hitColliders[i].GetComponent<Enemy>().ChangeColor(Color.green);
                         break;
                 }
             }
@@ -114,29 +120,22 @@ public class LightController : MonoBehaviour
 
     private void FreezeEnemy(Collider2D enemy)
     {
-        enemy.GetComponent<Enemy>().Freeze();
+        float freezeDuration = 5f; // Thay đổi giá trị này để điều chỉnh thời gian đóng băng
+        enemy.GetComponent<Enemy>().Freeze(freezeDuration);
     }
 
     private void SpawnEnemy(Collider2D enemy)
     {
-        enemy.transform.position = new Vector2(Random.Range(-10f, 10f), Random.Range(-10f, 10f));
+        enemy.transform.position = new Vector2(Random.Range(-25f, -13f), Random.Range(-8f, 7f));
     }
 
     private void ShrinkEnemy(Collider2D enemy)
     {
         Enemy enemyScript = enemy.GetComponent<Enemy>();
-        if (!enemyScript.IsShrunk()) // Kiểm tra nếu chưa co lại
+        if (enemyScript != null && !enemyScript.IsShrunk()) // Kiểm tra nếu enemy tồn tại và chưa co lại
         {
-            enemyScript.ChangeColor(Color.red); // Đổi màu khi bị chiếu đèn Shrink
+            enemyScript.Shrink(); // Gọi phương thức Shrink để co lại
 
-            enemy.transform.localScale *= 0.5f; // Co lại một nửa kích thước
-
-            Enemy_Movement enemyMovement = enemy.GetComponent<Enemy_Movement>();
-            if (enemyMovement != null)
-            {
-                enemyMovement.ReduceSpeed(0.5f); // Giảm tốc độ còn một nửa
-            }
-            enemyScript.Shrink(); // Đánh dấu là đã co lại
         }
     }
 
@@ -145,6 +144,35 @@ public class LightController : MonoBehaviour
         if (light2D != null)
         {
             light2D.color = color; // Change the light color
+            ChangeFlashLightColor(color);
+            //ChangeLightGameObjectColor(color);
+            //ChangeCubeColor(color);
         }
     }
+
+    private void ChangeFlashLightColor(Color color)
+    {
+        if (flashLight != null)
+        {
+            Renderer flashLightRenderer = flashLight.GetComponent<Renderer>();
+
+            if (flashLightRenderer != null)
+            {
+                flashLightRenderer.material.color = color; // Thay đổi màu của FlashLight
+            }
+        }
+    }
+
+    //     private void ChangeCubeColor(Color color) // đổi màu GameObject con
+    //     {
+    //         if (flashLight != null)
+    //         {
+    //             Renderer[] childRenderers = flashLight.GetComponentsInChildren<Renderer>();
+    //             foreach (Renderer childRenderer in childRenderers)
+    //             {
+    //                 childRenderer.material.color = color;
+    //             }
+    //         }
+    //     }
+    // }
 }

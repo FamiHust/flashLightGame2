@@ -17,11 +17,11 @@ public class Controller : MonoBehaviour
     public float currentBattery; // Mức pin hiện tại
     public float batteryDrainRate = 5f; // Tốc độ tiêu thụ pin mỗi giây
     public float batteryRechargeRate = 5f; // Tốc độ sạc pin mỗi giây
-    //public float batteryPickupAmount = 20f;
     private bool isCranking = false; // Kiểm tra xem có đang quay tay không
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private int maxHealth;
+    [SerializeField] private float rotationSpeed = 5f; // Tốc độ quay
 
     int currentHealth;
 
@@ -94,10 +94,13 @@ public class Controller : MonoBehaviour
 
     private void FaceMovementDirection()
     {
-        float angle = Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg; // Chuyển đổi radian sang độ
+        if (moveInput != Vector2.zero) // Ensure there's movement input
+        {
+            float angle = Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg; // Convert radians to degrees
+            Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Create target rotation
 
-        Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Tạo góc quay
-        transform.rotation = rotation;
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed); // Use Lerp for smooth rotation
+        }
     }
 
     public void TakeDamage(int damage)
