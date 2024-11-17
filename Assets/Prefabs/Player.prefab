@@ -396,9 +396,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de06b0748a9ea7468378eb500f1e259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillSelectionMenu: {fileID: 0}
   lightFadeSpeed: 1
   holdDuration: 5
-  lightType: 0
+  currentLevel: 1
+  currentLightType: 0
   flashLight: {fileID: 0}
 --- !u!61 &3711855655860426656
 BoxCollider2D:
@@ -758,7 +760,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 1.0092798
-  m_PointLightOuterRadius: 4.2831883
+  m_PointLightOuterRadius: 4.0749235
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

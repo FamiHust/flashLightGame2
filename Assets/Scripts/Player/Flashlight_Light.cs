@@ -2,24 +2,22 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum LightType
-{
-    Freeze,
-    Spawn,
-    Shrink
-}
+public enum LightType { Freeze, Spawn, Shrink, Default }
 
 public class LightController : MonoBehaviour
 {
+    public SkillSelectionMenu skillSelectionMenu;
     private Controller playerController;
     private UnityEngine.Rendering.Universal.Light2D light2D;
     private Collider2D lightCollider; // Collider cho ánh sáng
 
     [SerializeField] private float lightFadeSpeed = 1f; // Tốc độ giảm độ sáng
     [SerializeField] private float holdDuration = 5f; // Thời gian giữ phím để tiêu diệt kẻ thù
-    [SerializeField] private LightType lightType; // Loại đèn
-    private LightType currentLightType; // Loại đèn hiện tại
-    public GameObject flashLight; // Tham chiếu đến GameObject FlashLight
+    [SerializeField] private int currentLevel = 1; // Biến để theo dõi level hiện tại
+    private bool isFlashlightSoundPlaying = false;
+    private bool isFlashlightOn = false;
+    public LightType currentLightType;
+    public GameObject flashLight;
 
     private float holdTime = 0f; // Thời gian đã giữ phím
 
@@ -33,37 +31,40 @@ public class LightController : MonoBehaviour
         lightCollider = GetComponent<Collider2D>();
         lightCollider.enabled = false;
 
-        currentLightType = LightType.Spawn;
-        ChangeLightColor(Color.green);
+        // Kiểm tra level hiện tại và thiết lập loại đèn
+        if (currentLevel == 1)
+        {
+            currentLightType = LightType.Default; // Đặt loại đèn là Default cho level 1
+            ChangeLightColor(GetColorByLightType(currentLightType)); // Đặt màu cho loại đèn Default
+        }
+        else
+        {
+            // Lấy loại ánh sáng đã chọn từ PlayerPrefs cho các level khác
+            int lightTypeIndex = PlayerPrefs.GetInt("SelectedLightType", (int)LightType.Default); // Mặc định là Default
+            currentLightType = (LightType)lightTypeIndex;
+
+            // Lấy màu sắc từ PlayerPrefs
+            float r = PlayerPrefs.GetFloat("LightColorR", 1f); // Mặc định là trắng
+            float g = PlayerPrefs.GetFloat("LightColorG", 1f);
+            float b = PlayerPrefs.GetFloat("LightColorB", 1f);
+            Color lightColor = new Color(r, g, b);
+
+            ChangeLightColor(lightColor); // Đặt màu cho đèn
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // Kiểm tra nếu người chơi đã chọn loại đèn
+        if (!light2D.enabled && playerController.currentBattery > 0)
         {
-            currentLightType = LightType.Freeze;
-            ChangeLightColor(Color.blue);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            currentLightType = LightType.Spawn;
-            ChangeLightColor(Color.green);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            currentLightType = LightType.Shrink;
-            ChangeLightColor(Color.red);
+            light2D.enabled = true;
+            lightCollider.enabled = true;
+
         }
 
         if (Input.GetKey(KeyCode.O) && playerController.currentBattery > 0)
         {
-            if (!light2D.enabled) // Kiểm tra nếu đèn chưa bật
-            {
-                light2D.enabled = true;
-                lightCollider.enabled = true;
-                SoundManager.PlaySound(SoundType.FLASHLIGHT); // Gọi âm thanh khi bật đèn
-            }
-
             holdTime += Time.deltaTime;
             CheckForEnemies();
         }
@@ -81,6 +82,12 @@ public class LightController : MonoBehaviour
     public LightType CurrentLightType
     {
         get { return currentLightType; }
+    }
+
+    public void SelectLightType(LightType lightType)
+    {
+        currentLightType = lightType;
+        ChangeLightColor(GetColorByLightType(lightType));
     }
 
     private void CheckForEnemies()
@@ -113,6 +120,9 @@ public class LightController : MonoBehaviour
                         SpawnEnemy(hitColliders[i]);
                         //hitColliders[i].GetComponent<Enemy>().ChangeColor(Color.green);
                         break;
+                    case LightType.Default:
+                        // Không làm gì khi chiếu ánh sáng Default
+                        break;
                 }
             }
         }
@@ -126,7 +136,7 @@ public class LightController : MonoBehaviour
 
     private void SpawnEnemy(Collider2D enemy)
     {
-        enemy.transform.position = new Vector2(Random.Range(-25f, -13f), Random.Range(-8f, 7f));
+        enemy.transform.position = new Vector2(Random.Range(-13f, -13f), Random.Range(-7f, -7f));
     }
 
     private void ShrinkEnemy(Collider2D enemy)
@@ -143,10 +153,8 @@ public class LightController : MonoBehaviour
     {
         if (light2D != null)
         {
-            light2D.color = color; // Change the light color
-            ChangeFlashLightColor(color);
-            //ChangeLightGameObjectColor(color);
-            //ChangeCubeColor(color);
+            light2D.color = color; // Thay đổi màu của đèn
+            ChangeFlashLightColor(color); // Thay đổi màu của FlashLight
         }
     }
 
@@ -163,16 +171,21 @@ public class LightController : MonoBehaviour
         }
     }
 
-    //     private void ChangeCubeColor(Color color) // đổi màu GameObject con
-    //     {
-    //         if (flashLight != null)
-    //         {
-    //             Renderer[] childRenderers = flashLight.GetComponentsInChildren<Renderer>();
-    //             foreach (Renderer childRenderer in childRenderers)
-    //             {
-    //                 childRenderer.material.color = color;
-    //             }
-    //         }
-    //     }
-    // }
+    private Color GetColorByLightType(LightType lightType)
+    {
+        switch (lightType)
+        {
+            case LightType.Freeze:
+                return Color.blue;
+            case LightType.Shrink:
+                return Color.red;
+            case LightType.Spawn:
+                return Color.green;
+            case LightType.Default:
+            default:
+                return Color.white; // Màu cho loại đèn Default
+        }
+    }
+
+
 }

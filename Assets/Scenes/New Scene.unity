@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114034833319431376, guid: 74c9e29e9d222a4438669336303acc9a, type: 3}
       propertyPath: cameraParametersFilename
-      value: 
+      value: Integrated Webcam - 2024-11-14_10-07-04.xml
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

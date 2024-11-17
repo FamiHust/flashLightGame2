@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour
     public GameObject WinPanel;
 
     private SpriteRenderer spriteRenderer; // Thêm biến để lưu trữ SpriteRenderer
+    private Animator animator;
     private Color originalColor; // Màu sắc gốc
     public GameObject OverPanel;
 
@@ -36,6 +37,7 @@ public class Controller : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color; // Lưu màu sắc gốc
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -59,6 +61,11 @@ public class Controller : MonoBehaviour
         if (moveInput != Vector2.zero)
         {
             FaceMovementDirection();
+            animator.SetBool("isWalking", true); // Bật animation walk
+        }
+        else
+        {
+            animator.SetBool("isWalking", false); // Tắt animation walk
         }
 
         // Xử lý bật tắt đèn
