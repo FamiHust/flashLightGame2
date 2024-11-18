@@ -13,6 +13,7 @@ TagManager:
   - Coin
   - Time
   - Spotlight
+  - Lock
   layers:
   - Default
   - TransparentFX
