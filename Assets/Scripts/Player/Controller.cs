@@ -158,7 +158,18 @@ public class Controller : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FinishLine"))
         {
+            UnlockNewLevel();
             GameWin();
+        }
+    }
+
+    void UnlockNewLevel()
+    {
+        if (SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex"))
+        {
+            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 1);
+            PlayerPrefs.SetInt("unlockedLevel", PlayerPrefs.GetInt("unlockedLevel", 1) + 1);
+            PlayerPrefs.Save();
         }
     }
 
