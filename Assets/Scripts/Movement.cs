@@ -43,11 +43,29 @@ public class MovementReceiver : MonoBehaviour
         // Map commands to movement
         switch (movementCommand)
         {
+            case "Up":
+                movement = Vector3.right; // Move left when going up
+                break;
+            case "Down":
+                movement = Vector3.left; // Move right when going down
+                break;
             case "Left":
-                movement = Vector3.left;
+                movement = Vector3.up; // Move down when going left
                 break;
             case "Right":
-                movement = Vector3.right;
+                movement = Vector3.down; // Move up when going right
+                break;
+            case "UpLeft":
+                movement = new Vector3(1, 1, 0).normalized; // Diagonal adjustment
+                break;
+            case "UpRight":
+                movement = new Vector3(1, 1, 0).normalized; // Diagonal adjustment
+                break;
+            case "DownLeft":
+                movement = new Vector3(1, 1, 0).normalized; // Diagonal adjustment
+                break;
+            case "DownRight":
+                movement = new Vector3(1, 1, 0).normalized; // Diagonal adjustment
                 break;
             case "Centered":
                 movement = Vector3.zero;

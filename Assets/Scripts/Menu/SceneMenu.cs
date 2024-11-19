@@ -7,11 +7,11 @@ public class SceneMenu : MonoBehaviour
     public Button[] buttons;
     public GameObject levelButtons;
 
-    private void Awake() 
+    private void Awake()
     {
         ButtonToArray();
         int unlockLevel = PlayerPrefs.GetInt("unlockedLevel", 1);
-        for (int i = 0; i<buttons.Length; i++)
+        for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].interactable = false;
         }
@@ -35,6 +35,11 @@ public class SceneMenu : MonoBehaviour
     public void HomeMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void SelectMenu()
+    {
+        SceneManager.LoadScene(1);
     }
 
     void ButtonToArray()
