@@ -9,7 +9,8 @@ public enum SoundType
     DIE,
     FLASHLIGHT,
     PLAYERDIE,
-    BATTERY
+    BATTERY,
+    BUTTON
 }
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
@@ -26,6 +27,14 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            SoundManager.PlaySound(SoundType.BUTTON);
+        }
     }
 
     public static void PlaySound(SoundType sound, float volume = 1f)
