@@ -18,6 +18,7 @@ public class LightController : MonoBehaviour
     private bool isFlashlightOn = false;
     public LightType currentLightType;
     public GameObject flashLight;
+    private bool isOpenFlash = false;
 
     private float holdTime = 0f; // Thời gian đã giữ phím
 
@@ -52,7 +53,6 @@ public class LightController : MonoBehaviour
             ChangeLightColor(lightColor); // Đặt màu cho đèn
         }
     }
-
     private void Update()
     {
         // Kiểm tra nếu người chơi đã chọn loại đèn
@@ -60,12 +60,16 @@ public class LightController : MonoBehaviour
         {
             light2D.enabled = true;
             lightCollider.enabled = true;
-
         }
 
-        if (Input.GetKey(KeyCode.O) && playerController.currentBattery > 0)
+        if (isOpenFlash && playerController.currentBattery > 0)
         {
             holdTime += Time.deltaTime;
+            if (!light2D.enabled)
+            {
+                light2D.enabled = true;
+                lightCollider.enabled = true;
+            }
             CheckForEnemies();
         }
         else
@@ -77,6 +81,11 @@ public class LightController : MonoBehaviour
             }
             holdTime = 0f;
         }
+    }
+
+    public void TurnFlash()
+    {
+        isOpenFlash = !isOpenFlash;
     }
 
     public LightType CurrentLightType

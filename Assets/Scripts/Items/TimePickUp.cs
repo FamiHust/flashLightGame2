@@ -23,7 +23,7 @@ public class TimePickup : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.P))
+        if (isPlayerInRange)
         {
             CollectTime(); // Gọi phương thức thu thập thời gian
         }
@@ -35,6 +35,7 @@ public class TimePickup : MonoBehaviour
         if (timer != null)
         {
             timer.AddTime(timeToAdd); // Gọi phương thức AddTime trong Timer
+            SoundManager.PlaySound(SoundType.BATTERY);
         }
         Destroy(gameObject); // Xóa đối tượng Time
     }

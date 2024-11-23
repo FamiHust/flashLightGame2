@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Chest : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class Chest : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.P))
+        if (isPlayerInRange)
         {
             OpenChest();
         }
@@ -41,6 +42,7 @@ public class Chest : MonoBehaviour
         if (lootScript != null)
         {
             lootScript.OnLootButtonClicked();
+            SoundManager.PlaySound(SoundType.BATTERY);
         }
 
         // Xóa rương

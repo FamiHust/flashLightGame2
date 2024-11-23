@@ -23,7 +23,7 @@ public class HealthPickup : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.P))
+        if (isPlayerInRange)
         {
             CollectHealth(); // Gọi phương thức thu thập máu
         }
@@ -34,6 +34,7 @@ public class HealthPickup : MonoBehaviour
         Controller controller = FindObjectOfType<Controller>();
         if (controller != null)
         {
+            SoundManager.PlaySound(SoundType.BATTERY);
             controller.TakeDamage(-healthPickupAmount); // Gọi hàm TakeDamage với giá trị âm để tăng máu
             Destroy(gameObject); // Xóa đối tượng Health
         }

@@ -36,7 +36,7 @@ public class CoinPickUp : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.P))
+        if (isPlayerInRange)
         {
             CollectCoin();
         }
@@ -47,6 +47,7 @@ public class CoinPickUp : MonoBehaviour
         totalCoins++; // Tăng tổng số coin
         PlayerPrefs.SetInt("totalCoins", totalCoins);
         UpdateCoinsText(); // Cập nhật văn bản đồng xu sau khi thu thập
+        SoundManager.PlaySound(SoundType.BATTERY);
         Destroy(gameObject); // Xóa đối tượng Coin
     }
 

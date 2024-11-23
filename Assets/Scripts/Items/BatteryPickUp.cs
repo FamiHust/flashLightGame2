@@ -30,9 +30,9 @@ public class BatteryPickup : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.P))
+        if (isPlayerInRange)
         {
-            CollectBattery(); // Gọi phương thức thu thập pin
+            CollectBattery();
         }
     }
 
@@ -41,7 +41,7 @@ public class BatteryPickup : MonoBehaviour
         controller.currentBattery += batteryPickupAmount;
         controller.currentBattery = Mathf.Clamp(controller.currentBattery, 0, controller.maxBattery); // Đảm bảo pin không vượt quá mức tối đa
         batteryBar.UpdateBar((int)controller.currentBattery, (int)controller.maxBattery);
-
-        Destroy(gameObject); // Xóa đối tượng Battery
+        SoundManager.PlaySound(SoundType.BATTERY);
+        Destroy(gameObject);
     }
 }

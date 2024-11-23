@@ -42,6 +42,12 @@ public class Timer : MonoBehaviour
     {
         Time.timeScale = 0;
         OverPanel.SetActive(true);
+        SoundManager.PlaySound(SoundType.PLAYERDIE);
+    }
+
+    public void MapLevel()
+    {
+        SceneManager.LoadScene(1);
     }
 
     public void ReplayGame()

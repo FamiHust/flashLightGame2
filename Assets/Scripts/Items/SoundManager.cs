@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum SoundType
 {
@@ -10,8 +11,9 @@ public enum SoundType
     FLASHLIGHT,
     PLAYERDIE,
     BATTERY,
-    BUTTON
+    VICTORY
 }
+
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
@@ -29,13 +31,13 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            SoundManager.PlaySound(SoundType.BUTTON);
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Input.GetMouseButtonDown(0))
+    //     {
+    //         SoundManager.PlaySound(SoundType.BUTTON);
+    //     }
+    // }
 
     public static void PlaySound(SoundType sound, float volume = 1f)
     {

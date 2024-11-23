@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Controller : MonoBehaviour
     private Animator animator;
     private Color originalColor; // Màu sắc gốc
     public GameObject OverPanel;
+    public Joystick joystick;
 
     private bool isWalking = false;
     public float maxBattery = 100f; // Mức pin tối đa
@@ -19,10 +21,12 @@ public class Controller : MonoBehaviour
     public float batteryDrainRate = 5f; // Tốc độ tiêu thụ pin mỗi giây
     public float batteryRechargeRate = 5f; // Tốc độ sạc pin mỗi giây
     private bool isCranking = false; // Kiểm tra xem có đang quay tay không
+    private bool isOpenFlash = false;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private int maxHealth;
     [SerializeField] private float rotationSpeed = 5f; // Tốc độ quay
+    [SerializeField] private Button btnOpenFlash;
 
     int currentHealth;
 
@@ -42,6 +46,7 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
+
         if (GetComponent<SpriteRenderer>() == null)
         {
             gameObject.AddComponent<SpriteRenderer>();
@@ -58,6 +63,9 @@ public class Controller : MonoBehaviour
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
 
+        moveInput.x = joystick.Horizontal;
+        moveInput.y = joystick.Vertical;
+
         if (moveInput != Vector2.zero)
         {
             FaceMovementDirection();
@@ -68,8 +76,7 @@ public class Controller : MonoBehaviour
             animator.SetBool("isWalking", false); // Tắt animation walk
         }
 
-        // Xử lý bật tắt đèn
-        if (Input.GetKey(KeyCode.O) && currentBattery > 0)
+        if (isOpenFlash && currentBattery > 0)
         {
             currentBattery -= batteryDrainRate * Time.deltaTime; // Giảm pin khi sử dụng đèn
             batteryBar.UpdateBar((int)currentBattery, (int)maxBattery);
@@ -79,24 +86,30 @@ public class Controller : MonoBehaviour
                 currentBattery = 0;
             }
         }
-
-        // Xử lý nạp pin
-        if (Input.GetKeyDown(KeyCode.P) && !isCranking)
+        else if (!isOpenFlash) // Nếu đèn không mở, sạc pin
         {
-            isCranking = true;
-            StartCoroutine(CrankBattery());
-            SoundManager.PlaySound(SoundType.BATTERY);
-        }
-
-        if (Input.GetKeyUp(KeyCode.P))
-        {
-            isCranking = false;
+            currentBattery += batteryRechargeRate * Time.deltaTime; // Sạc pin
+            currentBattery = Mathf.Clamp(currentBattery, 0, maxBattery); // Đảm bảo pin không vượt quá mức tối đa
+            batteryBar.UpdateBar((int)currentBattery, (int)maxBattery);
         }
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void TurnFlash()
+    {
+        if (isOpenFlash)
+        {
+            isOpenFlash = false;
+        }
+        else
+        {
+            isOpenFlash = true;
+        }
+
     }
 
     private void FaceMovementDirection()
@@ -160,6 +173,7 @@ public class Controller : MonoBehaviour
         {
             UnlockNewLevel();
             GameWin();
+            SoundManager.PlaySound(SoundType.VICTORY);
         }
     }
 

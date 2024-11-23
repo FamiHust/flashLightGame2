@@ -1,0 +1,12 @@
+# ninja log v5
+307	1559	7538694656651061	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	65444d56a282abd8
+35	3851	7538694679696933	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	e1ad4473540654f9
+54	4004	7538694681048892	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	fcfeecae942b5c65
+69	4034	7538694681301245	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	ed5a6772ca0e87d4
+1561	4156	7538694676368551	C:/flashLightGame2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6m1y736g/obj/arm64-v8a/libswappywrapper.so	976c8c380338ae2a
+245	4336	7538694685117889	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	1a5ffd47ad0ea5dc
+130	4359	7538694685497533	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	28f80e7f9df2683
+43	4918	7538694690584733	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	55da455ad9b6357c
+2	5234	7538694694167341	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	aa1901d482aade0c
+94	5500	7538694696848008	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	d9c7212600c85821
+5500	5727	7538694699228359	C:/flashLightGame2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6m1y736g/obj/arm64-v8a/libgame.so	4ce9975476b7793b
