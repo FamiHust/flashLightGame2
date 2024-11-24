@@ -24,11 +24,11 @@ public class Controller : MonoBehaviour
     private bool isOpenFlash = false;
 
     [SerializeField] private float moveSpeed;
-    [SerializeField] private int maxHealth;
+    public int maxHealth;
     [SerializeField] private float rotationSpeed = 5f; // Tốc độ quay
     [SerializeField] private Button btnOpenFlash;
 
-    int currentHealth;
+    public int currentHealth;
 
     private Rigidbody2D rb;
 
@@ -51,6 +51,10 @@ public class Controller : MonoBehaviour
         {
             gameObject.AddComponent<SpriteRenderer>();
         }
+
+        // Khôi phục giá trị maxHealth và maxBattery từ PlayerPrefs
+        maxHealth = PlayerPrefs.GetInt("maxHealth", maxHealth);
+        maxBattery = PlayerPrefs.GetInt("maxBattery", (int)maxBattery);
         currentHealth = maxHealth;
         currentBattery = maxBattery;
 

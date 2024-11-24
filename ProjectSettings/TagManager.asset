@@ -26,7 +26,7 @@ TagManager:
   - ArucoCameraBackground
   - ArucoCameraStereoBackground1
   - ArucoCameraStereoBackground2
-  - 
+  - Minimap
   - 
   - 
   - 
@@ -50,6 +50,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: MinimapGFX
+    uniqueID: 2744830589
+    locked: 0
+  - name: UI
+    uniqueID: 1995093535
     locked: 0
   m_RenderingLayers:
   - Default

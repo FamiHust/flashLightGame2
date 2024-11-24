@@ -216,7 +216,7 @@ QualitySettings:
     excludedTargetPlatforms: []
   m_TextureMipmapLimitGroupNames: []
   m_PerPlatformDefaultQuality:
-    Android: 1
+    Android: 3
     GameCoreScarlett: 3
     GameCoreXboxOne: 3
     Lumin: 3
