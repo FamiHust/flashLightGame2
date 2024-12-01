@@ -1,17 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class GameMainMenu : MonoBehaviour
 {
-    public void SelectSceneMenu()
+    public GameObject AskPanel;
+
+    public void OpenAskMenu()
     {
-        SceneManager.LoadScene(1);
+        AskPanel.SetActive(true);
     }
 
-    // public void SettingMenu()
-    // {
+    public void CloseAskMenu()
+    {
+        AskPanel.SetActive(false);
+    }
 
-    // }
+    public void SelectSceneMenu()
+    {
+        SceneManager.LoadScene(2);
+    }
 
     public void QuitGame()
     {

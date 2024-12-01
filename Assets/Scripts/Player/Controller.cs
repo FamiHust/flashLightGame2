@@ -19,7 +19,7 @@ public class Controller : MonoBehaviour
     public float maxBattery = 100f; // Mức pin tối đa
     public float currentBattery; // Mức pin hiện tại
     public float batteryDrainRate = 5f; // Tốc độ tiêu thụ pin mỗi giây
-    public float batteryRechargeRate = 5f; // Tốc độ sạc pin mỗi giây
+    float batteryRechargeRate = 0f; // Tốc độ sạc pin mỗi giây
     private bool isCranking = false; // Kiểm tra xem có đang quay tay không
     private bool isOpenFlash = false;
 
@@ -161,7 +161,6 @@ public class Controller : MonoBehaviour
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-            // Kiểm tra xem enemy có bị đóng băng không
             if (enemy != null && !enemy.IsFrozen())
             {
                 TakeDamage(1);

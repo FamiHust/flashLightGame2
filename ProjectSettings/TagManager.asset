@@ -27,7 +27,7 @@ TagManager:
   - ArucoCameraStereoBackground1
   - ArucoCameraStereoBackground2
   - Minimap
-  - 
+  - Trap
   - 
   - 
   - 
@@ -53,6 +53,9 @@ TagManager:
     locked: 0
   - name: MinimapGFX
     uniqueID: 2744830589
+    locked: 0
+  - name: Trap
+    uniqueID: 3908380433
     locked: 0
   - name: UI
     uniqueID: 1995093535

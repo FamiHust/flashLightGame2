@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HintMenu : MonoBehaviour
+public class GameHintMenu : MonoBehaviour
 {
     public GameObject AboutPanel;
     public GameObject HintPanel;
@@ -24,4 +24,5 @@ public class HintMenu : MonoBehaviour
     {
         HintPanel.SetActive(false);
     }
+    
 }

@@ -11,7 +11,8 @@ public enum SoundType
     FLASHLIGHT,
     PLAYERDIE,
     BATTERY,
-    VICTORY
+    VICTORY,
+    TRAP
 }
 
 [RequireComponent(typeof(AudioSource))]

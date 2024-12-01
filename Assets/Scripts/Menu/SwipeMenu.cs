@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SwipeMenu : MonoBehaviour
+public class GameSwipeMenu : MonoBehaviour
 {
     public GameObject scrollBar;
     float scroll_pos = 0;

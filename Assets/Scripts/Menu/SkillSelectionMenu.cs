@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SkillSelectionMenu : MonoBehaviour
+public class GameSkillSelectionMenu : MonoBehaviour
 {
     //private Timer timer;
     public LightController lightController;
@@ -12,7 +12,6 @@ public class SkillSelectionMenu : MonoBehaviour
     public Button shrinkButton;
     public Button spawnButton;
     [SerializeField] private int nextLevel;
-
 
     private void Start()
     {
@@ -52,30 +51,18 @@ public class SkillSelectionMenu : MonoBehaviour
     {
         Time.timeScale = 0;
         SceneManager.LoadScene("Level_" + nextLevel.ToString());
-
     }
 
     public void SelectSkill()
     {
         Time.timeScale = 1;
         SelectSkillMenu.SetActive(true);
-        // Dừng đồng hồ khi menu kỹ năng được bật
-        // if (timer != null)
-        // {
-        //     timer.PauseTimer();
-        // }
     }
 
     public void PlayGame()
     {
         Time.timeScale = 1;
         SelectSkillMenu.SetActive(false);
-        // Khôi phục đồng hồ khi menu kỹ năng bị tắt
-        // if (timer != null)
-        // {
-        //     timer.ResumeTimer();
-        // }
-        //SelectLightType(lightController.currentLightType);
     }
 
     private Color GetColorByLightType(LightType lightType)
@@ -90,7 +77,7 @@ public class SkillSelectionMenu : MonoBehaviour
                 return Color.green;
             case LightType.Default:
             default:
-                return Color.white; // Màu cho loại đèn Default
+                return Color.white;
         }
     }
 }
