@@ -12,19 +12,20 @@ public class Boss_Movement : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private int minDamage;
     [SerializeField] private int maxDamage;
+    private bool isAttacking = false;
 
     private Rigidbody2D _rigidbody;
     private PlayerAwarenessController _playerAwarenessController;
     private Vector2 _targetDirection;
+    private Animator animator;
 
     Health health;
-
-
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _playerAwarenessController = GetComponent<PlayerAwarenessController>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -51,8 +52,10 @@ public class Boss_Movement : MonoBehaviour
             controller = other.GetComponent<Controller>();
             SoundManager.PlaySound(SoundType.ATTACK);
             InvokeRepeating("DamagePlayer", 0, 0.2f);
+            animator.SetBool("isAttacking", true);
             StartCoroutine(PlayHurtSoundWithDelay(0.4f));
         }
+
         if (other.CompareTag("Spotlight"))
         {
             SoundManager.PlaySound(SoundType.DIE);
@@ -64,6 +67,7 @@ public class Boss_Movement : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             controller = null;
+            animator.SetBool("isAttacking", false);
             CancelInvoke();
         }
     }
@@ -108,7 +112,7 @@ public class Boss_Movement : MonoBehaviour
         }
         else
         {
-            _rigidbody.linearVelocity = transform.up;
+            _rigidbody.linearVelocity = transform.up * _speed;
         }
     }
 

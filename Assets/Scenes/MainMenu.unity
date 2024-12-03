@@ -2730,7 +2730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 622415903976247747, guid: 995779a4e9cd0694487a95da86be9da8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 397
+      value: 405
       objectReference: {fileID: 0}
     - target: {fileID: 1003735928792798868, guid: 995779a4e9cd0694487a95da86be9da8, type: 3}
       propertyPath: m_Camera
@@ -2778,7 +2778,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3033055318878750133, guid: 995779a4e9cd0694487a95da86be9da8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -412
+      value: -440
+      objectReference: {fileID: 0}
+    - target: {fileID: 3777011044455699869, guid: 995779a4e9cd0694487a95da86be9da8, type: 3}
+      propertyPath: m_text
+      value: "Once a thriving factory, now a cursed wasteland. A chemical disaster
+        turned its workers into relentless zombies, leaving the place abandoned and
+        shrouded in darkness. You are a security guard trapped inside during your
+        patrol. With only a flashlight in hand, you must survive the horrors of the
+        factory\u2014deadly traps, lurking zombies, and the crushing weight of isolation.\nYour
+        goal is clear: find the keys, survive for 10 days, and escape. But the darkness
+        hides more than just monsters\u2014it tests your courage, wit, and will to
+        survive.\n\t\"In darkness, light is your only hope. Escape before it\u2019s
+        too late!\""
       objectReference: {fileID: 0}
     - target: {fileID: 6826855263425806910, guid: 995779a4e9cd0694487a95da86be9da8, type: 3}
       propertyPath: m_LocalScale.x
