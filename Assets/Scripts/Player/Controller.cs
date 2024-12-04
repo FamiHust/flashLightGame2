@@ -214,4 +214,10 @@ public class Controller : MonoBehaviour
         yield return new WaitForSeconds(0.08f); // Thời gian nhấp nháy
         spriteRenderer.color = originalColor; // Khôi phục lại màu sắc gốc
     }
+
+    // private IEnumerator PlayDieSoundWithDelay(float delay)
+    // {
+    //     yield return new WaitForSeconds(delay);
+    //     SoundManager.PlaySound(SoundType.PLAYERDIE);
+    // }
 }

@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
 {
     public int maxHealth;
     [HideInInspector] public int currentHealth;
+    private bool isDie = false;
     private SpriteRenderer spriteRenderer; // Thêm biến để lưu trữ SpriteRenderer
     private Color originalColor; // Màu sắc gốc
     public GameObject gameObject;
@@ -39,7 +40,6 @@ public class Health : MonoBehaviour
             SoundManager.PlaySound(SoundType.DIE);
             gameObject.SetActive(false);
         }
-        //healthBar.UpdateBar(currentHealth, maxHealth);
 
         StartCoroutine(FlashGrey());
     }

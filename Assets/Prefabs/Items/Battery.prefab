@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   batteryBar: {fileID: 975740327964224449, guid: 31c86dfa7b05ff44b89197fed2c5c48c, type: 3}
-  batteryPickupAmount: 1
+  batteryPickupAmount: 2
 --- !u!58 &8890839654661553208
 CircleCollider2D:
   m_ObjectHideFlags: 0

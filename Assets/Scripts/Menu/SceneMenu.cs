@@ -25,7 +25,7 @@ public class GameSceneMenu : MonoBehaviour
 
     public void OpenLevel(int levelId)
     {
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         SceneManager.LoadScene("Level_" + levelId);
     }
 

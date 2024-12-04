@@ -49,7 +49,7 @@ public class GameSkillSelectionMenu : MonoBehaviour
 
     public void NextLevel()
     {
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         SceneManager.LoadScene("Level_" + nextLevel.ToString());
     }
 
