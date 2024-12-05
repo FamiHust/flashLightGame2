@@ -75,7 +75,6 @@ public class Boss_Movement : MonoBehaviour
     void DamagePlayer()
     {
         int damage = UnityEngine.Random.Range(minDamage, maxDamage);
-        Debug.Log("Player take damage " + damage);
         controller.TakeDamage(damage);
     }
 
