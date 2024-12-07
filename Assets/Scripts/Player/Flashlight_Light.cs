@@ -6,7 +6,7 @@ public enum LightType { Freeze, Spawn, Shrink, Default }
 
 public class LightController : MonoBehaviour
 {
-    public SkillSelectionMenu skillSelectionMenu;
+    public GameSkillSelectionMenu skillSelectionMenu;
     private Controller playerController;
     private UnityEngine.Rendering.Universal.Light2D light2D;
     private Collider2D lightCollider; // Collider cho ánh sáng

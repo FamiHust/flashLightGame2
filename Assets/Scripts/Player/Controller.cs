@@ -14,6 +14,8 @@ public class Controller : MonoBehaviour
     private Color originalColor; // Màu sắc gốc
     public GameObject OverPanel;
     public Joystick joystick;
+    private bool isDie = false;
+    private bool isGameOver = false;
 
     private bool isWalking = false;
     public float maxBattery = 100f; // Mức pin tối đa
@@ -55,6 +57,7 @@ public class Controller : MonoBehaviour
         // Khôi phục giá trị maxHealth và maxBattery từ PlayerPrefs
         maxHealth = PlayerPrefs.GetInt("maxHealth", maxHealth);
         maxBattery = PlayerPrefs.GetInt("maxBattery", (int)maxBattery);
+        moveSpeed = PlayerPrefs.GetFloat("moveSpeed", 3.5f);
         currentHealth = maxHealth;
         currentBattery = maxBattery;
 
@@ -64,6 +67,11 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
+        if (isGameOver) // Kiểm tra nếu game over
+        {
+            return; // Không thực hiện gì thêm
+        }
+
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
 
@@ -136,7 +144,7 @@ public class Controller : MonoBehaviour
         {
             currentHealth = 0;
             GameOver();
-            SoundManager.PlaySound(SoundType.PLAYERDIE);
+            //SoundManager.PlaySound(SoundType.PLAYERDIE);
         }
         healthBar.UpdateBar(currentHealth, maxHealth);
 
@@ -145,8 +153,17 @@ public class Controller : MonoBehaviour
 
     public void GameOver()
     {
+        isGameOver = true;
+        animator.SetBool("isDie", true);
+        StartCoroutine(GameOverCoroutine());
+    }
+
+    private IEnumerator GameOverCoroutine()
+    {
+        yield return new WaitForSeconds(0.6f);
         Time.timeScale = 0;
         OverPanel.SetActive(true);
+        SoundManager.PlaySound(SoundType.PLAYERDIE);
     }
 
     public void GameWin()

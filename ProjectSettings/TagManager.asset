@@ -14,6 +14,7 @@ TagManager:
   - Time
   - Spotlight
   - Lock
+  - Event
   layers:
   - Default
   - TransparentFX
